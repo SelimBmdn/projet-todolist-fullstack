@@ -24,6 +24,5 @@ export const POST = async(request: Request) => {
             'Failed to creat a new Task.',
             { status: 500 }
         )
-
     }
 }
