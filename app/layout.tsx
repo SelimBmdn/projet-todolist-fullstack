@@ -1,7 +1,7 @@
+'use client'
+import './globals.css'
 import type { Metadata } from 'next'
 import { ChakraProvider } from '@chakra-ui/react'
-import './globals.css'
-
 
 export const metadata: Metadata = {
   title: 'Create Next App',
