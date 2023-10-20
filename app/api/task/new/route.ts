@@ -16,7 +16,6 @@ export const POST = async(request: Request) => {
             newTask,
             { status: 201 }
         )
-
     }
 
     catch(error) {
