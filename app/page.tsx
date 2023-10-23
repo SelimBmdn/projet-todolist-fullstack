@@ -2,11 +2,18 @@
 import { useState, useEffect } from "react"
 import  Header  from "@/components/Header"
 import AddTask from "@components/AddTask"
+import { Spinner , Flex } from "@chakra-ui/react"
+import { ITask } from "@types";
+
+import NoTask from "../components/NoTask"
+import Task from "@components/Task"
+import Loading from "@components/Loading"
 
 export default function Home() {
 
   const [task, setTask] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [allTasks, setAllTasks] = useState([])
 
   const handleCreateTask = async () => {
 
@@ -20,6 +27,7 @@ export default function Home() {
       })
       if(response.ok){
         setTask('')
+        fetchTasks()
       }
       else {
         console.log('error')
@@ -33,10 +41,52 @@ export default function Home() {
     setIsLoading(false)
   }
 
+  const fetchTasks = async() => {
+    try {
+      const response = await fetch("/api/task/all")
+      const data = await response.json()
+      setAllTasks(data)
+      setIsLoading(false)
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
+
+  const handleCompleteTask = async () => {
+
+  }
+
+  const handleDeleteTask = async ( ) => {
+
+  }
+
+
+  useEffect(() => {
+
+      fetchTasks()
+  }, [])
+
   return (
     <>
       <Header />
       <AddTask task={task} setTask={setTask} handleCreateTask={handleCreateTask} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+        <Flex direction="column" p="2rem">
+          {allTasks.length > 0 ? 
+          allTasks.map((individualTask: ITask) => (
+          <Task key={individualTask._id} individualTask={individualTask} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} />
+        )) : (
+          <NoTask />
+        )
+        }
+        </Flex>
+
+        </>
+      )}
     </>
   )
 }
