@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { IDeleteTaskRequestParam } from '@types'
 
 
-export const PATCH = async(request: Request, { params } : IDeleteTaskRequestParam) => {
+export const PATCH = async( request: Request, { params } : IDeleteTaskRequestParam) => {
     try {
 
         await connectToDB()

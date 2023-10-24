@@ -53,22 +53,21 @@ export default function Home() {
     }
   }
 
-  const handleCompleteTask = async (id: string) => {
-    try {
-      const response = await fetch(`/api/task/complete/${id}`, {
-        method: "PATCH"
-      })
-      if (response.ok) {
-        await fetchTasks()
-      }
-      else {
-        console.log("Error completing task")
-      }
+ // Complete a task
+ const handleCompleteTask = async(id: string) => {
+  try {
+    const response = await fetch(`/api/task/complete/${id.toString()}`, {
+      method: "PATCH"
+    })
+    if (response.ok) {
+      await fetchTasks()
+    } else {
+      console.log("Error editing task.")
     }
-    catch (error) {
-      console.log("Error complete task", error)
-    }
+  } catch (error) {
+    console.log("Error editing task:", error)
   }
+}
 
   const handleDeleteTask = async (id: string) => {
     try {
