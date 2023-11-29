@@ -12,7 +12,6 @@ export const DELETE = async(request: Request, { params }:
             await Task.findByIdAndRemove(params.id)
 
             return NextResponse.json("Delete successfully", { status: 200})
-
         }
         catch(error) {
             console.log(error)
